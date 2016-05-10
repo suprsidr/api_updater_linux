@@ -1,35 +1,41 @@
 # api_updater_linux
-Linux version of my api_updater
+Linux version of my api_updater for both HH.com and ForceRC.com
 
 #### Installation
-
->npm install
-
+```
+npm install
+```
 #### Execute the app
-
->node nightlyProcess
-
+```
+node nightlyProcess
+```
 ##### Or run the steps separately
+```
+node step1
 
->node step1
+node step2
 
->node step2
+node step3
 
+node step4
+```
 
 ## Hints:
 
 After initial run - future runs will be much quicker if you create a unique index on ProdID
-
->mongo
-
+```
+mongo
+```
 
 followed by:
 
->use hhproducts
+```
+use hhproducts
 
->db.products.createIndex( { "ProdID": 1 }, { unique: true } )
->db.forceproducts.createIndex( { "ProdID": 1 }, { unique: true } )
+db.products.createIndex( { "ProdID": 1 }, { unique: true } )
 
+db.forceproducts.createIndex( { "ProdID": 1 }, { unique: true } )
+```
 
 # License
 
