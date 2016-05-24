@@ -304,6 +304,41 @@ function getProducts(cb) {
   });
 }
 
+function getCompletionGuides(cb) {
+  console.log('Querying for CompletionGuides');
+  ibmdb.open("DRIVER={DB2};DATABASE=STG01DB;HOSTNAME=cmp02-ws-stg-db01;UID=wcdbuser;PWD=h0r1z0n;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
+    if (err) cb(err);
+    var q = "select replace(trim(c.name),chr(10),'') as \"ID\", (Select mfpartnumber from catentry where catentry_id = b.catentry_id_from) as \"ProdID\", (Select SUBSTR(xmlserialize(xmlagg(xmltext(CONCAT( ',',a.mfpartnumber))) as VARCHAR(1024)), 3) from catentry a inner join catentrel as z on a.catentry_id = z.CATENTRY_ID_CHILD where z.CATENTRY_ID_PARENT = b.catentry_id_to) as \"Members\" from catentry as a inner join catentdesc as c on a.catentry_id = c.catentry_id inner join MASSOCCECE as b on a.catentry_id = b.catentry_id_to inner join massoctype as z on b.massoctype_id = z.massoctype_id where a.catenttype_id = 'BundleBean' and z.MASSOCTYPE_ID in ('COMPLETION_KITS') with ur;";
+    conn.query(q, [], function (err, data) {
+      if (err) cb(err);
+
+      //we need to merge multiple results for same item
+      var items = {};
+      _.each(data, function(a) {
+        try {
+          items[a.ProdID].push({
+            ID: a.ID,
+            Name: a.Members.split(',')
+          });
+        } catch(e) {
+          items[a.ProdID] = [];
+          items[a.ProdID].push({
+            ID: a.ID,
+            Name: a.Members.split(',')
+          });
+        }
+      });
+      file.save(path.join(LOCALAPPDATA, './CompletionGuides.js'), 'exports.CompletionGuides = ' + JSON.stringify(items), function(err) {
+        if(err) cb(err);
+        conn.close(function () {
+          console.log('done');
+          cb(null, 'step 10 done');
+        });
+      });
+    });
+  });
+}
+
 // run queries in series
 async.series([
   getHasPartsListing,
@@ -314,7 +349,8 @@ async.series([
   getAttributeValues,
   getAttributes,
   getCategories,
-  getProducts
+  getProducts,
+  getCompletionGuides
 ], function(err, res){
   err && process.exit(err);
   process.exit();
