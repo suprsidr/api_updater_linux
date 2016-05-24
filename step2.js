@@ -15,6 +15,7 @@ var ItemProvider = require('./itemprovider-mongodb').ItemProvider,
     partsList = require(path.join(LOCALAPPDATA, './PartsList')).PartsList,
     attributes = require(path.join(LOCALAPPDATA, './Attributes')).Attributes,
     categories = require(path.join(LOCALAPPDATA, './Categories')).Categories,
+    completionGuides = require(path.join(LOCALAPPDATA, './CompletionGuides')).CompletionGuides,
     data = require(path.join(LOCALAPPDATA, './Products')).Products,
     timestamp = Date.now();
 
@@ -37,6 +38,7 @@ for(var i = 0;i<data.length;i++) {
   data[i]['ListPrice'] = listPrice[data[i].ProdID] || 0;
   data[i]['PartsList'] = partsList[data[i].ProdID] || null;
   data[i]['Categories'] = categories[data[i].ProdID] || null;
+  data[i]['CompletionGuides'] = completionGuides[data[i].ProdID] || null;
   data[i]['Attributes'] = attributes[data[i].ProdID] || null;
 
   //if(i == data.length - 1) {process.exit()}
