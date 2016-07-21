@@ -55,7 +55,7 @@ function getPrice(cb) {
   console.log('Querying for Price');
   ibmdb.open("DRIVER={DB2};DATABASE=STG01DB;HOSTNAME=cmp02-ws-stg-db01;UID=wcdbuser;PWD=h0r1z0n;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
     if (err) cb(err);
-    var q = "select a.mfpartnumber as \"ProdID\", c.price as \"Price\" from catentry as a inner join offer as b on a.catentry_id = b.catentry_id inner join offerprice as c on b.offer_id = c.offer_id where a.catenttype_id = 'ProductBean' and b.tradeposcn_id = 4000000000000000001 and b.precedence = 15.0 and a.buyable = 1 and a.field4 in ('3DS','BLH','BTX','CLN','DYN','ECX','EFL','EVO','FMM','FUG','FPV','FSV','GWS','HAN','HBZ','IBS','INT','KXS','IRL','LOS','MPU','PKZ','PRB','PRO','PTA','RC4','RTM','SAI','SEA','SPM','STX','TAM','TLR','TRA','VNR','VTR','YUN','ZEN','HPS') order by a.mfpartnumber asc with ur";
+    var q = "select a.mfpartnumber as \"ProdID\", c.price as \"Price\" from catentry as a inner join offer as b on a.catentry_id = b.catentry_id inner join offerprice as c on b.offer_id = c.offer_id where a.catenttype_id = 'ProductBean' and b.tradeposcn_id = 4000000000000000001 and b.precedence = 15.0 and a.field4 in ('3DS','BLH','BTX','CLN','DYN','ECX','EFL','EVO','FMM','FUG','FPV','FSV','GWS','HAN','HBZ','IBS','INT','KXS','IRL','LOS','MPU','PKZ','PRB','PRO','PTA','RC4','RTM','SAI','SEA','SPM','STX','TAM','TLR','TRA','VNR','VTR','YUN','ZEN','HPS') order by a.mfpartnumber asc with ur";
     conn.query(q, [], function (err, data) {
       if (err) cb(err);
 
@@ -79,7 +79,7 @@ function getListPrice(cb) {
   console.log('Querying for ListPrice');
   ibmdb.open("DRIVER={DB2};DATABASE=STG01DB;HOSTNAME=cmp02-ws-stg-db01;UID=wcdbuser;PWD=h0r1z0n;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
     if (err) cb(err);
-    var q = "select a.mfpartnumber as \"ProdID\", c.price as \"ListPrice\" from catentry as a inner join offer as b on a.catentry_id = b.catentry_id inner join offerprice as c on b.offer_id = c.offer_id where a.catenttype_id = 'ProductBean' and b.tradeposcn_id = 4000000000000000002 and b.precedence = 15.0 and a.buyable = 1 and a.field4 in ('3DS','BLH','BTX','CLN','DYN','ECX','EFL','EVO','FMM','FUG','FPV','FSV','GWS','HAN','HBZ','IBS','INT','KXS','IRL','LOS','MPU','PKZ','PRB','PRO','PTA','RC4','RTM','SAI','SEA','SPM','STX','TAM','TLR','TRA','VNR','VTR','YUN','ZEN','HPS') order by a.mfpartnumber asc with ur";
+    var q = "select a.mfpartnumber as \"ProdID\", c.price as \"ListPrice\" from catentry as a inner join offer as b on a.catentry_id = b.catentry_id inner join offerprice as c on b.offer_id = c.offer_id where a.catenttype_id = 'ProductBean' and b.tradeposcn_id = 4000000000000000002 and b.precedence = 15.0 and a.field4 in ('3DS','BLH','BTX','CLN','DYN','ECX','EFL','EVO','FMM','FUG','FPV','FSV','GWS','HAN','HBZ','IBS','INT','KXS','IRL','LOS','MPU','PKZ','PRB','PRO','PTA','RC4','RTM','SAI','SEA','SPM','STX','TAM','TLR','TRA','VNR','VTR','YUN','ZEN','HPS') order by a.mfpartnumber asc with ur";
     conn.query(q, [], function (err, data) {
       if (err) cb(err);
 
