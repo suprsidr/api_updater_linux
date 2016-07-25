@@ -315,7 +315,7 @@ async.series([
   getAttributes,
   getCategories,
   getProducts
-], function(err, res){
+], function(err){
   err && console.log(err);
   process.exit();
 });

@@ -351,7 +351,7 @@ async.series([
   getCategories,
   getProducts,
   getCompletionGuides
-], function(err, res){
+], function(err){
   err && process.exit(err);
   process.exit();
 });
