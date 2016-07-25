@@ -91,6 +91,10 @@ function saveToDb() {
 function typeOf(t){var e={}.toString.call(t);return"[object Object]"===e?"object":"[object Array]"===e?"array":"[object String]"===e?"string":"[object Number]"===e?"number":"[object Function]"===e?"function":"[object Null]"===e?"null":"undefined"}
 Array.prototype.unique=function(){for(var r=this.concat(),t=0;t<r.length;++t)for(var n=t+1;n<r.length;++n)r[t]===r[n]&&r.splice(n--,1);return r};
 
+// open DB -> insert items into DB
+itemProvider.open(function(){
+  
+});
 // open DB -> remove all items -> insert items into DB
 itemProvider.open(function(){
   itemProvider.deleteItem({collection: 'products', query: {}}, function(err, item) {
