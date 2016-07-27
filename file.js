@@ -7,7 +7,7 @@ var fs = require('fs');
 function File() {
 
   function save(path, val, cb) {
-    fs.writeFile(path, val, function(err) {
+    fs.writeFile(path, val, {mode: parseInt('0777', 8)}, function(err) {
       if(err) {
         cb(err);
       } else {
